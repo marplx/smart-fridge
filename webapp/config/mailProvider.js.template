@@ -1,0 +1,32 @@
+const SENDGRID_API_KEY = 'examplekey';
+const SendGrid = require('sendgrid');
+const sender = 'youremail@provider.org'
+
+function sendMail(recipent, subjectText, contentText) {
+  return new Promise(function(resolve, reject) {
+    var helper = SendGrid.mail;
+    var fromEmail = new helper.Email(sender);
+    var toEmail = new helper.Email(recipent);
+    var content = new helper.Content('text/html', contentText);
+    var mail = new helper.Mail(fromEmail, subjectText, toEmail, content);
+
+    var sg = SendGrid(SENDGRID_API_KEY);
+    var request = sg.emptyRequest({
+      method: 'POST',
+      path: '/v3/mail/send',
+      body: mail.toJSON()
+    });
+
+    sg.API(request, function (error, response) {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(response);
+      }
+    });
+  });
+}
+
+module.exports = {
+  sendMail
+}

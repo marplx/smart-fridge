@@ -1,0 +1,15 @@
+$font-family-sans-serif: 'Roboto';
+@import 'bootstrap';
+
+//smart home icons
+@import 'flaticon';
+
+$mdi-font-path: '../assets';
+@import 'materialdesignicons.scss';
+
+body {
+  padding-top: 71px;
+}
+
+@import '../scripts/components/admin/admin';
+@import '../scripts/components/user/user';

@@ -1,0 +1,8 @@
+//configure your admin accounts here and remove the .template suffix
+module.exports = [
+  {
+    id: 1,
+    user: 'admin',
+    password: 'secret'
+  }
+];

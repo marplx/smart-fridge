@@ -1,6 +1,5 @@
 **/.sass-cache/
 **/node_modules/
-**/*.template
+webapp/config/*.js
+!webapp/config/*.js.template
 .DS_Store
-webapp/.git
-webapp/.gitignore

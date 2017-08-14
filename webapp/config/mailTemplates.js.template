@@ -1,0 +1,121 @@
+const basePath = 'https://my-smart-fridge.herokuapp.com/';
+
+function paymentReminderTemplate(user, debts) {
+  var moneyAmount = (debts / 100).toFixed(2).replace('.', ',');
+  var contentText = `Hey ${user.name},
+    <p>
+      your current debts at SmartFrige are currently €${moneyAmount}.
+      You can review your purchase history <a href="${basePath}#/user/${user.id}/${user.secret}">here</a>.
+    </p>
+    <p>
+      Please pay your debts via PayPal through this <b>secret</b> link:
+      <a href="${basePath}#/user/${user.id}/${user.secret}">
+        ${basePath}#/user/${user.id}/${user.secret}
+      </a>
+    </p>
+    <br><br>
+    Best,<br>
+    Your SmartFrige Team`;
+
+    return {
+      recipent: user.email,
+      subjectText: 'Friendly Reminer: Your debts at SmartFridge 💸',
+      contentText
+    };
+}
+
+function paymentDeclineTemplate(user, payment) {
+  var moneyAmount = (payment.amount_cents / 100).toFixed(2).replace('.', ',');
+  var contentText = `Hey ${user.name},
+    <p>
+      I did not receive your payment of €${moneyAmount}.
+    </p>
+    <p>
+      If you think this is an error, please contact me. If you forget to pay your debts and
+      want to start a new payment, please visit your personal account through this <b>secret</b> link:
+      <br>
+        <a href="${basePath}#/user/${user.id}/${user.secret}">
+        ${basePath}#/user/${user.id}/${user.secret}
+        </a>
+      <br>
+    </p>
+    <br><br>
+    Best,<br>
+    Your SmartFrige Team`;
+
+  return {
+    recipent: user.email,
+    subjectText: 'Your payment has been declined ❌',
+    contentText
+  };
+}
+
+function paymentConfirmationTemplate(user, payment) {
+  var moneyAmount = (payment.amount_cents / 100).toFixed(2).replace('.', ',');
+  var contentText = `Hey ${user.name},
+    <p>
+      I confirm your payment of €${moneyAmount}.
+    </p>
+    <p>
+      You can view your purchases and payments through this <b>secret</b> link:
+      <br>
+        <a href="${basePath}#/user/${user.id}/${user.secret}">
+        ${basePath}#/user/${user.id}/${user.secret}
+        </a>
+      <br>
+    </p>
+    <br><br>
+    Best,<br>
+    Your SmartFrige Team`;
+  var mail = user.email;
+
+  return {
+    recipent: user.email,
+    subjectText: 'Your payment has been confirmed ✅',
+    contentText
+  }
+}
+
+function registrationConfirmationTemplate(user) {
+  var contentText = `Hey ${user.name},
+    <p>
+      welcome to the SmartFridge Later-Pay-System.
+      You can now purchase drinks by touching the RFID box with your registered ID card.
+      The purchase has been confirmed as soon as the LED flashes green.
+    </p>
+    <p>
+      You can view your history and most importantly make your payments through this <b>secret</b> link:
+      <br>
+      <strong>
+        <a href="${basePath}#/user/${user.id}/${user.secret}">
+        ${basePath}#/user/${user.id}/${user.secret}
+        </a>
+      </strong>
+      <br>
+      This link is valid as long as your account is active.
+    </p>
+      <small>
+        There is no login system. The secret token in your private link is your password.
+        Please do not share this link as anyone with this link has access to your purchase history.
+        Deletion or updates on your account are possible. Please come to me, if you want to change your data.
+        You will receive reminder mails as soon as I want to collect money but you are able to pay whenever you want.
+      </small>
+    </p>
+    <br><br>
+    Best,<br>
+    Your SmartFrige Team`;
+  var mail = user.email;
+
+  return {
+    recipent: user.email,
+    subjectText: 'Welcome to SmartFridge!',
+    contentText
+  }
+}
+
+module.exports = {
+  paymentReminderTemplate,
+  paymentConfirmationTemplate,
+  paymentDeclineTemplate,
+  registrationConfirmationTemplate
+}

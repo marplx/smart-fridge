@@ -1,0 +1,119 @@
+    /*
+    Flaticon icon font: Flaticon
+    Creation date: 22/06/2016 15:31
+    */
+
+    @font-face {
+  font-family: "Flaticon";
+  src: url("assets/Flaticon.eot");
+  src: url("assets/Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("assets/Flaticon.woff") format("woff"),
+       url("assets/Flaticon.ttf") format("truetype"),
+       url("assets/Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("assets/Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+    .fi:before{
+        display: inline-block;
+  font-family: "Flaticon";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+    }
+
+    .flaticon-air-conditioning:before { content: "\f100"; }
+.flaticon-alarm:before { content: "\f101"; }
+.flaticon-alarm-1:before { content: "\f102"; }
+.flaticon-alarm-2:before { content: "\f103"; }
+.flaticon-battery:before { content: "\f104"; }
+.flaticon-blinds:before { content: "\f105"; }
+.flaticon-cctv:before { content: "\f106"; }
+.flaticon-computer:before { content: "\f107"; }
+.flaticon-computing-cloud:before { content: "\f108"; }
+.flaticon-console:before { content: "\f109"; }
+.flaticon-cup:before { content: "\f10a"; }
+.flaticon-eye:before { content: "\f10b"; }
+.flaticon-floor:before { content: "\f10c"; }
+.flaticon-garage:before { content: "\f10d"; }
+.flaticon-heating:before { content: "\f10e"; }
+.flaticon-key:before { content: "\f10f"; }
+.flaticon-light-bulb:before { content: "\f110"; }
+.flaticon-padlock:before { content: "\f111"; }
+.flaticon-pan:before { content: "\f112"; }
+.flaticon-password:before { content: "\f113"; }
+.flaticon-phone:before { content: "\f114"; }
+.flaticon-pipes:before { content: "\f115"; }
+.flaticon-plant:before { content: "\f116"; }
+.flaticon-plug:before { content: "\f117"; }
+.flaticon-power-button:before { content: "\f118"; }
+.flaticon-processor:before { content: "\f119"; }
+.flaticon-roof:before { content: "\f11a"; }
+.flaticon-safebox:before { content: "\f11b"; }
+.flaticon-smart-home:before { content: "\f11c"; }
+.flaticon-smartphone:before { content: "\f11d"; }
+.flaticon-solar-panel:before { content: "\f11e"; }
+.flaticon-surveillance:before { content: "\f11f"; }
+.flaticon-swimming-pool:before { content: "\f120"; }
+.flaticon-thermometer:before { content: "\f121"; }
+.flaticon-toilet:before { content: "\f122"; }
+.flaticon-touch-pad:before { content: "\f123"; }
+.flaticon-vacuum-cleaner:before { content: "\f124"; }
+.flaticon-washer-machine:before { content: "\f125"; }
+.flaticon-watering-can:before { content: "\f126"; }
+.flaticon-windmill:before { content: "\f127"; }
+
+    $font-Flaticon-air-conditioning: "\f100";
+    $font-Flaticon-alarm: "\f101";
+    $font-Flaticon-alarm-1: "\f102";
+    $font-Flaticon-alarm-2: "\f103";
+    $font-Flaticon-battery: "\f104";
+    $font-Flaticon-blinds: "\f105";
+    $font-Flaticon-cctv: "\f106";
+    $font-Flaticon-computer: "\f107";
+    $font-Flaticon-computing-cloud: "\f108";
+    $font-Flaticon-console: "\f109";
+    $font-Flaticon-cup: "\f10a";
+    $font-Flaticon-eye: "\f10b";
+    $font-Flaticon-floor: "\f10c";
+    $font-Flaticon-garage: "\f10d";
+    $font-Flaticon-heating: "\f10e";
+    $font-Flaticon-key: "\f10f";
+    $font-Flaticon-light-bulb: "\f110";
+    $font-Flaticon-padlock: "\f111";
+    $font-Flaticon-pan: "\f112";
+    $font-Flaticon-password: "\f113";
+    $font-Flaticon-phone: "\f114";
+    $font-Flaticon-pipes: "\f115";
+    $font-Flaticon-plant: "\f116";
+    $font-Flaticon-plug: "\f117";
+    $font-Flaticon-power-button: "\f118";
+    $font-Flaticon-processor: "\f119";
+    $font-Flaticon-roof: "\f11a";
+    $font-Flaticon-safebox: "\f11b";
+    $font-Flaticon-smart-home: "\f11c";
+    $font-Flaticon-smartphone: "\f11d";
+    $font-Flaticon-solar-panel: "\f11e";
+    $font-Flaticon-surveillance: "\f11f";
+    $font-Flaticon-swimming-pool: "\f120";
+    $font-Flaticon-thermometer: "\f121";
+    $font-Flaticon-toilet: "\f122";
+    $font-Flaticon-touch-pad: "\f123";
+    $font-Flaticon-vacuum-cleaner: "\f124";
+    $font-Flaticon-washer-machine: "\f125";
+    $font-Flaticon-watering-can: "\f126";
+    $font-Flaticon-windmill: "\f127";

@@ -1,0 +1,159 @@
+<div class="row admin">
+  <div class="col-xs-12 col-sm-6 panel-fixed-height">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Current Total Debts</h3>
+      </div>
+      <div class="panel-body text-center v-center-box">
+        <h1>{{totalDebts/100 | currency:'€'}}</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-6 panel-fixed-height ">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Purchase Behaviour</h3>
+      </div>
+      <div class="panel-body text-center" id="chart-container">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-6">
+    <div class="panel panel-default panel-fixed-height">
+      <div class="panel-heading">
+        <h3 class="panel-title">Unconfirmed Payments</h3>
+      </div>
+      <div class="panel-body">
+        <div class="v-center-box" ng-if="pendingPayments.length === 0">
+          <div class="box-placeholder">No pending payments.</div>
+        </div>
+        <table class="table" ng-if="pendingPayments.length">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Betrag</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="payment in pendingPayments">
+              <td>{{usersById[payment.user_id].name}}</a></td>
+              <td>{{payment.amount_cents / 100 | currency:'€'}}</td>
+              <td>
+                <button class="btn btn-primary btn-sm" type="button" ng-disabled="payment.confirming" ng-click="confirmPayment(payment)">
+                  <i class="mdi" ng-class="{'mdi-loading mdi-spin': payment.confirming, 'mdi-check': !payment.confirming}"></i>
+                  confirm
+                </button>
+                &nbsp;
+                <button class="btn btn-danger btn-sm" type="button" ng-disabled="payment.declining" ng-click="declinePayment(payment)">
+                  <i class="mdi" ng-class="{'mdi-loading mdi-spin': payment.declining, 'mdi-block-helper': !payment.declining}"></i>
+                  decline
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-6">
+    <div class="panel panel-default panel-fixed-height">
+      <div class="panel-heading">
+        <h3 class="panel-title">&nbsp;</h3>
+      </div>
+      <div class="panel-body">
+        <!-- button: alle reminden mit schulden größer <input type="number"/> Euro -->
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">User Account Management</h3>
+      </div>
+      <div class="panel-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Name</th>
+              <th>E-Mail</th>
+              <th>RFID</th>
+              <th>Registration</th>
+              <th>Debts</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>(new)</td>
+              <td>
+                <input type="text" class="form-control" placeholder="Name" ng-model="newUserName" ng-disabled="inserting" />
+              </td>
+              <td>
+                <input type="text" class="form-control" placeholder="Email" ng-model="newUserEmail" ng-disabled="inserting" />
+              </td>
+              <td>
+                <input type="text" class="form-control" placeholder="RFID" ng-model="newUserRfid" ng-disabled="inserting" />
+              </td>
+              <td></td>
+              <td></td>
+              <td>
+                <button class="btn btn-primary btn-sm" ng-click="createUser()" ng-disabled="inserting ">
+                  <i class="mdi"
+                     ng-class="{ 'mdi-plus': !inserting, 'mdi-loading mdi-spin': inserting}"></i>
+                </button>
+              </td>
+            </tr>
+
+            <tr ng-repeat="user in users">
+              <td>{{user.id}}</td>
+              <td ng-if="!editMode">{{user.name}}</td>
+              <td ng-if="editMode"><input type="text" ng-model="user.name" /></td>
+              <td ng-if="!editMode">{{user.email}}</td>
+              <td ng-if="editMode"><input type="text" ng-model="user.email" /></td>
+              <td ng-if="!editMode"><code>{{user.rfid}}</code></td>
+              <td ng-if="editMode"><input type="text" ng-model="user.rfid" /></td>
+              <td>{{user.registration_timestamp | date}}</td>
+              <td>{{(debts[user.id]/100) | currency:'€'}}</td>
+              <td style="min-width: 145px;">
+                <div class="btn-group btn-group-sm">
+                  <!-- edit -->
+                  <button type="button" class="btn btn-default" ng-click="$parent.editMode = !$parent.editMode" ng-if="!editMode">
+                    <i class="mdi mdi-pencil"></i>
+                  </button>
+                  <button class="btn btn-primary" ng-click="updateUser(user);$parent.editMode = !$parent.editMode" ng-if="editMode">
+                    <i class="mdi mdi-check"></i>
+                  </button>
+
+                  <!-- delete -->
+                  <button type="button" class="btn btn-danger" ng-if="!deleteActive" ng-click="$parent.deleteActive = !$parent.deleteActive">
+                    <i class="mdi mdi-lock-open"></i>
+                  </button>
+                  <button type="button" class="btn btn-danger" ng-if="deleteActive" ng-click="deleteUser(user)">
+                    <i class="mdi mdi-delete"></i>
+                  </button>
+
+                  <button type="button" class="btn btn-info" ng-disabled="mailSent" ng-click="sendEmailReminder(user);mailSent = true">
+                    <i class="mdi" ng-class="{ 'mdi-check': mailSent, 'mdi-email-alert': !mailSent}"></i>
+                  </button>
+
+                  <a ng-attr-href="{{'#/user/' + user.id + '/' + user.secret }}" class="btn btn-default">
+                    <i class="mdi mdi-login-variant"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+</div>

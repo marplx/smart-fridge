@@ -1,0 +1,9 @@
+//add your Postgres Connection data here and remove the 'template' suffix
+module.exports = {
+  user: 'user',
+  host: 'host.com',
+  database: 'dbname',
+  password: 'secretpw',
+  port: 5432,
+  ssl: true
+};

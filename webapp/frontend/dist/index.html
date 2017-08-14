@@ -1,0 +1,34 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>SmartFridge</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+      <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+      <link rel="icon" type="image/png" href="assets/favicon.png" />
+      <link rel="stylesheet" href="app.css">
+  </head>
+
+  <body ng-app="aviatarFridge">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#/admin">
+            <i class="fi flaticon-thermometer"></i>
+            SmartFridge
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div ng-view class="container"></div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+    <script src="templates.js"></script>
+  </body>
+
+</html>
