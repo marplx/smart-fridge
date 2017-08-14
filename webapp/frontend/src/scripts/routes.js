@@ -4,10 +4,10 @@ angular
     'use strict';
 
     $routeProvider
-      // .when('/register', {
-      //     templateUrl: 'templates/main.tpl.html',
-      //     controller: 'MainCtrl'
-      // })
+      .when('/register', {
+          templateUrl: 'components/register/register.tpl.html',
+          controller: 'RegisterController'
+      })
       .when('/user/:userId/:secret', {
         templateUrl: 'components/user/user.tpl.html',
         controller: 'UserController'
@@ -25,5 +25,5 @@ angular
         templateUrl: 'components/login/login.tpl.html',
         controller: 'LoginController'
       })
-      .otherwise('/login');
+      .otherwise('/register');
   });

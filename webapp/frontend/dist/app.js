@@ -63675,6 +63675,17 @@ var angular = require('angular');
 var moment = require('moment');
 var _ = require('lodash');
 
+angular.module('aviatarFridge').controller('RegisterController', function ($scope) {
+  'use strict';
+});
+
+},{"angular":4,"lodash":7,"moment":8}],13:[function(require,module,exports){
+'use strict';
+
+var angular = require('angular');
+var moment = require('moment');
+var _ = require('lodash');
+
 angular.module('aviatarFridge').controller('UserController', function ($scope, $routeParams, UserService, PurchaseService, PaymentService) {
   'use strict';
 
@@ -63721,18 +63732,16 @@ angular.module('aviatarFridge').controller('UserController', function ($scope, $
   };
 });
 
-},{"angular":4,"lodash":7,"moment":8}],13:[function(require,module,exports){
+},{"angular":4,"lodash":7,"moment":8}],14:[function(require,module,exports){
 'use strict';
 
 angular.module('aviatarFridge').config(function ($routeProvider) {
   'use strict';
 
-  $routeProvider
-  // .when('/register', {
-  //     templateUrl: 'templates/main.tpl.html',
-  //     controller: 'MainCtrl'
-  // })
-  .when('/user/:userId/:secret', {
+  $routeProvider.when('/register', {
+    templateUrl: 'components/register/register.tpl.html',
+    controller: 'RegisterController'
+  }).when('/user/:userId/:secret', {
     templateUrl: 'components/user/user.tpl.html',
     controller: 'UserController'
   }).when('/admin', {
@@ -63746,10 +63755,10 @@ angular.module('aviatarFridge').config(function ($routeProvider) {
   }).when('/login', {
     templateUrl: 'components/login/login.tpl.html',
     controller: 'LoginController'
-  }).otherwise('/login');
+  }).otherwise('/register');
 });
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 angular.module('aviatarFridge').service('AuthenticationService', function ($q, $timeout, $http, $location, $rootScope) {
@@ -63791,7 +63800,7 @@ angular.module('aviatarFridge').service('AuthenticationService', function ($q, $
   };
 });
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
 
 angular.module('aviatarFridge').service('DebtService', DebtService);
@@ -63811,7 +63820,7 @@ function DebtService($http) {
   };
 }
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 angular.module('aviatarFridge').service('MailService', MailService);
@@ -63862,7 +63871,7 @@ function MailService($http) {
   };
 }
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
 
 angular.module('aviatarFridge').service('PaymentService', PaymentService);
@@ -63931,7 +63940,7 @@ function PaymentService($http) {
   };
 }
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 
 angular.module('aviatarFridge').service('PurchaseService', PurchaseService);
@@ -63961,7 +63970,7 @@ function PurchaseService($http) {
   };
 }
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 angular.module('aviatarFridge').service('UserService', UserService);
@@ -64010,4 +64019,4 @@ function UserService($http) {
   };
 }
 
-},{}]},{},[9,10,11,12,13,14,15,16,17,18,19]);
+},{}]},{},[9,10,11,12,13,14,15,16,17,18,19,20]);
