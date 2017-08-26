@@ -1,0 +1,41 @@
+.admin {
+  padding-top: 10px;
+
+  .row {
+    margin-bottom: 0;
+  }
+
+  .kpi {
+    font-size: 30px;
+    display: block;
+  }
+
+  #chart-container {
+    height: 116px;
+    margin-left: -12px;
+    margin-right: -12px;
+    width: calc(100% + 24px);
+  }
+
+  .account-management {
+    .user-name {
+      flex-grow: 1;
+    }
+
+    td, th {
+      padding: 10px 5px;
+    }
+
+    .collapsible-header i {
+      font-size: 1rem;
+      transform: scale(2);
+    }
+
+    .user-list {
+      input {
+        height: 2rem;
+        margin-bottom: 0;
+      }
+    }
+  }
+}

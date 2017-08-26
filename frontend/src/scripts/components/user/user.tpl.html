@@ -1,0 +1,120 @@
+<header></header>
+
+<!-- loading spinner -->
+<div class="container user center-align" ng-if="!history">
+  <div class="preloader-wrapper big active" ng-if="!items">
+    <div class="spinner-layer spinner-blue-only spinner-white">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container user" ng-if="history">
+  <!-- payment modal -->
+  <div class="modal payment-modal modal-fixed-footer" ng-class="{open: currentPayment}">
+    <div class="modal-content">
+      <h4>{{ 'user.paymentModalTitle' | translate:{amount: currentPayment.amount_cents} }}</h4>
+      <ng-include src="'config/paymentMethods.tpl.html'"></ng-include>
+   </div>
+    <div class="modal-footer">
+      <a href ng-click="currentPayment = undefined;" class="modal-action modal-close waves-effect waves-green btn-flat">
+        {{ 'user.paymentModalClose' | translate }}
+      </a>
+    </div>
+  </div>
+  <div class="modal-overlay" ng-if="currentPayment"></div>
+
+  <div class="row">
+
+    <!-- empty state -->
+    <div class="col s12 m8 offset-m2" ng-if="purchases.length === 0">
+      <div class="card z-depth-5">
+        <div class="card-content">
+          <span class="card-title" translate="user.emptyState.title"></span>
+          <div translate="user.emptyState.content"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- current debts info -->
+    <div class="col s12 m8 offset-m2">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title" ng-if="currentDebts === 0" translate="user.outstandingPayments.noDebtsTitle"></span>
+          <span class="card-title" ng-if="currentDebts > 0" translate="user.outstandingPayments.title"></span>
+          <p>
+            <h1>{{currentDebts | euro }}</h1>
+          </p>
+          <p ng-if="currentDebts > 0 && currentDebts < 1000">
+            {{ 'user.outstandingPayments.noActionRequired' | translate }}
+          </p>
+          <p>
+            {{ 'user.outstandingPayments.content' | translate }}
+          </p>
+        </div>
+        <div class="card-action right-align" ng-if="currentDebts > 0">
+          <button href ng-click="payNow()" class="waves-effect waves-teal btn-flat primary-color">
+            <i class="mdi mdi-coins"></i>
+            {{ 'user.outstandingPayments.payNow' | translate }}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- history -->
+    <div class="col s12 m8 offset-m2">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title" translate="user.history.title" translate-values="{firstName: firstName}"></span>
+
+          <ul class="collection history z-depth-0">
+            <li class="collection-item avatar" ng-repeat="item in history" ng-class="item.status">
+
+              <div ng-if="isPurchase(item)">
+                <i class="material-icons circle mdi mdi-24px white-text mdi-beer primary-color"></i>
+                <span class="title">
+                  {{ 'user.history.purchase.title' | translate:{price:item.price_cents} }}
+                </span>
+                <p>
+                  {{ 'user.history.purchase.content' | translate:{date: item.timestamp} }}
+                </p>
+              </div>
+
+              <div ng-if="isPayment(item)">
+                <i class="material-icons circle mdi mdi-24px white-text mdi-coins payment-icon"></i>
+                <span class="title" ng-if="item.status === 'declined'" translate="user.history.payment.declinedTitle" translate-values="{amount: item.amount_cents}"></span>
+                <span class="title" ng-if="item.status !== 'declined'" translate="user.history.payment.title" translate-values="{amount: item.amount_cents}"></span>
+                <p>
+                  {{ 'user.history.payment.content' | translate:{date: item.timestamp} }}
+                </p>
+                <a href
+                   ng-if="item.status === 'pending'"
+                   ng-click="$parent.$parent.currentPayment = item"
+                   class="secondary-content">
+                  <i class="mdi mdi-information-outline"></i>
+                </a>
+              </div>
+            </li>
+
+            <li class="collection-item avatar">
+              <i class="material-icons circle mdi mdi-18px mdi-account-plus primary-color white-text"></i>
+              <span class="title" translate="user.history.registration.title"></span>
+              <p>
+                {{ 'user.history.registration.content' | translate:{ date: user.registration_timestamp } }}
+              </p>
+            </li>
+
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

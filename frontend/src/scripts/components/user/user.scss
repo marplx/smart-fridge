@@ -1,0 +1,79 @@
+.user {
+
+  .preloader-wrapper {
+    margin-top: 30px;
+  }
+
+  .history {
+    border: none;
+
+    li.confirmed, li.pending {
+      ~ li {
+        opacity: 0.5;
+      }
+      .payment-icon {
+        @extend .primary-color;
+      }
+    }
+
+    li.declined .payment-icon {
+      @extend .secondary-color;
+    }
+  }
+
+  .payment-link {
+    @extend .blue-text;
+    i.mdi-check {
+      transition: opacity 0.5s ease-out;
+      opacity: 0;
+    }
+    transition: all 0.5s ease-out;
+
+    &.copied {
+      @extend .green-text, .text-accent-4;
+      i.mdi-check {
+        opacity: 1;
+      }
+    }
+  }
+
+  .bank-notes-impossible {
+    opacity: 0.5;
+  }
+
+  .payment-modal {
+    display: block;
+    transition: opacity 0.5s ease-out;
+
+    &.open {
+      z-index: 1003;
+      opacity: 1;
+      top: 10%;
+    }
+    opacity: 0;
+    max-height: 87%;
+    height: 80%;
+
+    .modal-content {
+      padding-bottom: 0;
+      .row {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .modal-overlay {
+    z-index: 1002;
+    display: block;
+    opacity: 0.5;
+  }
+
+  .collection .collection-item.avatar {
+    min-height: auto;
+    .secondary-content {
+      top: 10px;
+      right: 10px;
+      font-size: 22px;
+    }
+  }
+}

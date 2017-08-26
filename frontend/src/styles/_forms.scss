@@ -1,0 +1,9 @@
+.input-field input:focus, .input-field input.ng-not-empty {
+  + label {
+    transform: translateY(-1.4rem) scale(0.8);
+  }
+}
+
+button.btn-flat i, a.btn-flat i {
+  font-size: 1rem;
+}

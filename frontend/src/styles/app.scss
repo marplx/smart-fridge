@@ -1,0 +1,63 @@
+$roboto-font-path: '../assets/';
+@import 'materialize.scss';
+@import 'colors.scss';
+@import 'collapsible.scss';
+@import 'forms.scss';
+
+//smart home icons
+@import 'flaticon';
+
+$mdi-font-path: '../assets';
+@import 'materialdesignicons.scss';
+
+@import '../scripts/components/admin/admin';
+@import '../scripts/components/user/user';
+@import '../scripts/components/register/register';
+
+
+body {
+  background: $gradient-4;
+}
+
+.primary-gradient {
+  background: $gradient-4;
+}
+
+.primary-color {
+  @extend .white-text;
+  background-color: $primary-color !important;
+}
+
+.text-primary-color {
+  color: $primary-color !important;
+}
+
+.secondary-color {
+  @extend .white-text;
+  background-color: $secondary-color !important;
+}
+
+.text-secondary-color {
+  color: $secondary-color !important;
+}
+
+.spinner-primary-color {
+  @extend .spinner-blue-only;
+  border-color: $primary-color;
+}
+
+.spinner-white {
+  @extend .spinner-blue-only;
+  border-color: #fff;
+}
+
+.danger-color {
+  @extend .red, .darken-3, .white-text;
+}
+
+.card {
+  font-weight: 300;
+  &:not(.z-depth-0, .z-depth-1, .z-depth-2, .z-depth-3, .z-depth-4) {
+    @extend .z-depth-5;
+  }
+}

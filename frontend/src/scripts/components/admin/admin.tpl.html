@@ -1,0 +1,234 @@
+<div class="admin container">
+
+  <!-- KPIs -->
+  <div class="row">
+
+    <div class="col s12 m6">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title"><i class="mdi mdi-coins"></i> Outstanding Payments</span>
+          <p>
+            <h1>{{ totalDebts | euro }}</h1>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s12 m6">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title"><i class="mdi mdi-beer"></i> Total Purchases</span>
+          <p>
+            <h1>{{purchases.length}}</h1>
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title"><i class="mdi mdi-trending-up"></i> Last 14 Days</span>
+          <div id="chart-container" ></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+
+    <div class="col s12 m6">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title"><i class="mdi mdi-heart-outline"></i> Best Customer</span>
+          <p>
+            <h2 class="truncate" ng-attr-title="{{bestCustomer.name}}">{{bestCustomer.name}}</h2>
+            {{bestCustomer.totalPurchases}} drinks for {{ bestCustomer.totalAmount | euro }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s12 m6">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title"><i class="mdi mdi-account-settings-variant"></i> Active Users</span>
+          <p>
+            <h2>?</h2>
+            {{users.length}} accounts in total
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+
+    <!-- unconfirmed payments -->
+    <div class="col s12" ng-if="pendingPayments.length > 0">
+      <div class="card white">
+        <div class="card-content">
+          <span class="card-title">Pending Payments</span>
+
+          <table>
+            <thead>
+              <tr>
+                  <th>User</th>
+                  <th>Amount</th>
+                  <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr ng-repeat="payment in pendingPayments">
+                <td>{{usersById[payment.user_id].name}}</a></td>
+                <td>{{ payment.amount_cents | euro }}</td>
+                <td>
+                  <button class="waves-effect waves-light btn btn-flat primary-color" type="button" ng-disabled="payment.confirming" ng-click="confirmPayment(payment)">
+                    <i class="mdi" ng-class="{'mdi-loading mdi-spin': payment.confirming, 'mdi-check': !payment.confirming}"></i>
+                    confirm
+                  </button>
+                  &nbsp;
+                  <button class="waves-effect waves-light btn btn-flat danger-color" type="button" ng-disabled="payment.declining" ng-click="declinePayment(payment)">
+                    <i class="mdi" ng-class="{'mdi-loading mdi-spin': payment.declining, 'mdi-block-helper': !payment.declining}"></i>
+                    decline
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s12">
+      <div class="card white account-management">
+        <div class="card-content">
+          <span class="card-title">Account Management</span>
+          <ul class="collapsible z-depth-0" data-collapsible="accordion">
+            <li>
+              <div class="collapsible-header">
+                <i class="mdi mdi-plus"></i> New Account
+              </div>
+              <div class="collapsible-body">
+                <table>
+                  <tr>
+                    <td>
+                      <input type="text" placeholder="Name" ng-model="newUserName" ng-disabled="inserting" />
+                    </td>
+                    <td>
+                      <input type="text" placeholder="Email" ng-model="newUserEmail" ng-disabled="inserting" />
+                    </td>
+                    <td>
+                      <input type="text" placeholder="RFID" ng-model="newUserRfid" ng-disabled="inserting" />
+                    </td>
+                    <td>
+                      <button class="waves-effect waves-light btn btn-flat primary-color" ng-click="createUser()" ng-disabled="inserting ">
+                        <i class="mdi" ng-class="{ 'mdi-plus': !inserting, 'mdi-loading mdi-spin': inserting}"></i>
+                        add
+                      </button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </li>
+          </ul>
+
+          <ul class="collapsible z-depth-0 user-list" data-collapsible="accordion">
+
+            <li ng-repeat="user in users">
+              <div class="collapsible-header">
+                <i class="mdi mdi-account"></i>
+                <div class="user-name">{{user.name}}</div>
+                <div><i class="mdi mdi-coins"></i> {{debts[user.id] | euro }}</div>
+              </div>
+
+              <div class="collapsible-body">
+                <div class="row">
+                  <div class="col s12 m6">
+                    <table>
+                      <tr>
+                        <th>ID</th>
+                        <td>{{user.id}}</td>
+                      </tr>
+                      <tr>
+                        <th>Name</th>
+                        <td ng-if="!editMode">{{user.name}}</td>
+                        <td ng-if="editMode"><input type="text" ng-model="user.name" /></td>
+                      </tr>
+                      <tr>
+                        <th>Email</th>
+                        <td ng-if="!editMode">{{user.email}}</td>
+                        <td ng-if="editMode"><input type="text" ng-model="user.email" /></td>
+                      </tr>
+                      <tr>
+                        <th>RFID</th>
+                        <td ng-if="!editMode"><code>{{user.rfid}}</code></td>
+                        <td ng-if="editMode"><code><input type="text" ng-model="user.rfid" /></code></td>
+                      </tr>
+                      <tr>
+                        <th>Since</th>
+                        <td>{{user.registration_timestamp | date:short}}</td>
+                      </tr>
+                      <tr>
+                        <th>Total drinks</th>
+                        <td>{{purchasesByUsers[user.id].length || 0}}</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="col s12 m6">
+                    <button type="button" class="waves-effect waves-light btn btn-flat primary-color"
+                            ng-click="editMode = !editMode" ng-hide="editMode">
+                      <i class="mdi mdi-pencil"></i>
+                      Edit
+                    </button>
+
+                    <button class="waves-effect waves-light btn btn-flat primary-color"
+                            ng-click="updateUser(user);editMode = !editMode" ng-hide="!editMode">
+                      <i class="mdi mdi-check"></i>
+                      Save
+                    </button>
+
+                    <br/>
+                    <br/>
+
+                    <button type="button" class="waves-effect waves-light btn btn-flat danger-color"
+                            ng-click="deleteActive = !deleteActive">
+                      <i class="mdi" ng-class="{'mdi-lock-open': !deleteActive, 'mdi-lock': deleteActive}"></i>
+                    </button>
+                    <button type="button" class="waves-effect waves-light btn btn-flat red darken-3 white-text"
+                            ng-disabled="!deleteActive" ng-click="deleteUser(user)">
+                      <i class="mdi mdi-delete"></i>
+                      Delete
+                    </button>
+
+                    <br/>
+                    <br/>
+
+                    <button type="button" class="waves-effect waves-light btn btn-flat primary-color"
+                            ng-disabled="mailSent || !debts[user.id]" ng-click="sendEmailReminder(user);mailSent = true">
+                      <i class="mdi" ng-class="{ 'mdi-check': mailSent, 'mdi-email-alert': !mailSent}"></i>
+                      Send Payment Reminder Mail
+                    </button>
+
+                    <br/>
+                    <br/>
+
+                    <a ng-attr-href="{{'#/user/' + user.id + '/' + user.secret }}"
+                        class="waves-effect waves-light btn btn-flat primary-color">
+                      <i class="mdi mdi-login-variant"></i>
+                      Login as
+                    </button>
+                  </div>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

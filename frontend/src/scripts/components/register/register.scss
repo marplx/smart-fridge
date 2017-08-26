@@ -1,0 +1,56 @@
+.register {
+  .collapsible-header {
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 2rem;
+  }
+
+  .button-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .scan-area {
+    position: relative;
+    text-align: center;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .seconds-count {
+      position: absolute;
+      top: 44px;
+      font-size: 18px;
+      font-weight: 100;
+    }
+
+    .waiting-people {
+      position: absolute;
+      top: 44px;
+      left: calc(50% - 10px);
+      font-size: 22px;
+      i:first-child {
+        margin-right: 16px;
+      }
+    }
+
+    &.waiting .spinner-primary-color, &.loading .spinner-primary-color {
+      border-color: #ccc;
+    }
+  }
+
+  .header-number {
+    color: #888;
+    margin-right: 8px;
+  }
+
+  .floating-image {
+    float: left;
+    margin: 10px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+}

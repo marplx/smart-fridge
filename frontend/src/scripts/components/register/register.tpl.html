@@ -1,0 +1,157 @@
+<header></header>
+<div class="container register">
+
+  <form name="userData" ng-submit="submitData()">
+    <ul class="collapsible popout click-disabled">
+      <li>
+        <div class="collapsible-header active">
+          <i class="mdi mdi-beer"></i>
+          {{ 'registration.stepWelcome.title' | translate }}
+        </div>
+        <div class="collapsible-body">
+          <div translate="registration.stepWelcome.content"></div>
+
+          <div class="button-bar">
+            <div></div>
+            <button class="waves-effect waves-teal btn-flat primary-color" ng-click="goToStep(2)">{{ 'registration.continue' | translate }}</button>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="collapsible-header">
+          <i class="mdi mdi-signal-variant"></i>
+          <span class="header-number">1</span>
+          {{ 'registration.stepScan.title' | translate }}
+        </div>
+        <div class="collapsible-body">
+          <div translate="registration.stepScan.content"></div>
+
+          <div class="scan-area" ng-class="scanStatus.status">
+            <!-- PRISTINE -->
+            <button class="waves-effect waves-teal btn-flat primary-color"
+                    ng-click="startScanning()"
+                    ng-if="scanStatus.status === 'pristine'">{{ 'registration.stepScan.scanNow' | translate }}</button>
+
+            <!-- LOADING -->
+            <div class="scan-animation" ng-if="scanStatus.status === 'loading' || scanStatus.status === 'receiving' || scanStatus.status === 'waiting'">
+              <div class="preloader-wrapper active">
+                <div class="spinner-layer spinner-blue-only spinner-primary-color">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="gap-patch">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div ng-if="scanStatus.status === 'loading'" translate="registration.stepScan.state.loading"></div>
+
+
+            <!-- RECEIVING -->
+            <div ng-if="scanStatus.status === 'receiving'" class="seconds-count">{{secondsRemaining}}</div>
+            <div ng-if="scanStatus.status === 'receiving'" translate="registration.stepScan.state.scanning"></div>
+
+            <!-- WAITING -->
+            <div ng-if="scanStatus.status === 'waiting'">
+              <div class="waiting-people">
+                <!-- no space here -->
+                <i class="mdi mdi-human-handsup"></i><i class="mdi mdi-human-handsdown" ng-repeat="i in range(scanStatus.count-1)"></i><i class="mdi mdi-human-handsdown text-primary-color"></i>
+              </div>
+
+              <span ng-if="scanStatus.count === 1" translate="registration.stepScan.state.nextInLine"></span>
+              <span ng-if="scanStatus.count > 1" translate="registration.stepScan.state.waiting" translate-values='{ count: scanStatus.count}'></span>
+            </div>
+
+            <!-- RECEIVED -->
+            <div ng-if="scanStatus.status === 'received'">
+              <i class="mdi mdi-check green-text text-darken-4 mdi-24px"></i>
+              <br/>
+              <span translate="registration.stepScan.success"></span>
+            </div>
+
+            <!-- TIMEOUT -->
+            <div ng-if="scanStatus.status === 'timeout'">
+              <div translate="registration.stepScan.state.timeout"></div>
+              <br/>
+              <button class="waves-effect waves-teal btn-flat primary-color"
+                ng-click="startScanning()">
+                <i class="mdi mdi-sync"></i>
+                {{ 'registration.stepScan.tryAgain' | translate }}
+              </button>
+            </div>
+          </div>
+
+
+          <div class="button-bar">
+            <button class="waves-effect waves-teal btn-flat"
+                    ng-click="resetRfid();goToStep(1);">
+                    {{ 'registration.back' | translate }}
+            </button>
+            <button class="waves-effect waves-teal btn-flat"
+                    ng-click="resetRfid()"
+                    ng-if="user.rfid">{{ 'registration.stepScan.reset' | translate }}</button>
+            <button class="waves-effect waves-teal btn-flat primary-color"
+                    ng-click="goToStep(3)"
+                    ng-if="user.rfid">{{ 'registration.continue' | translate }}</button>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header">
+          <i class="mdi mdi-pen"></i>
+          <span class="header-number">2</span>
+          {{ 'registration.stepData.title' | translate }}
+        </div>
+        <div class="collapsible-body">
+
+          <div class="input-field">
+            <input name="name" type="text" ng-model="user.name" class="validate" required novalidate>
+            <label for="name">{{ 'registration.stepData.name' | translate }}</label>
+          </div>
+
+          <div class="input-field">
+            <input name="email" ng-model="user.email" type="email" required novalidate>
+            <label for="email">{{ 'registration.stepData.email' | translate }}</label>
+          </div>
+
+          <div class="button-bar">
+            <button class="waves-effect waves-teal btn-flat"
+                    ng-click="goToStep(2)">
+                    {{ 'registration.back' | translate }}
+            </button>
+
+            <button class="waves-effect waves-teal btn-flat primary-color"
+                    ng-disabled="!userData.$valid || saving"
+                    type="submit">
+                    <i class="mdi mdi-loading mdi-spin" ng-if="saving"></i>
+                    {{ 'registration.stepData.create' | translate }}
+            </button>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="collapsible-header"><i class="mdi mdi-human-handsup"></i>
+          <span class="header-number">3</span>
+          {{ 'registration.stepDone.title' | translate }}
+        </div>
+        <div class="collapsible-body">
+          <div translate="registration.stepDone.content" translate-values="{userName: user.name}"></div>
+          <div class="button-bar">
+            <div></div>
+            <a class="waves-effect waves-teal btn-flat primary-color"
+               ng-href="/#/user/{{user.id}}/{{user.secret}}">
+              {{ 'registration.stepDone.continueToProfile' | translate }}
+              <i class="mdi mdi-arrow-right-thick"></i>
+            </a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </form>
+</div>

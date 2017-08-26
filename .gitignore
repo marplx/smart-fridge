@@ -1,5 +1,9 @@
 **/.sass-cache/
 **/node_modules/
-webapp/config/*.js
-!webapp/config/*.js.template
+config/*
+!config/*.template
+frontend/src/scripts/config/*
+frontend/src/scripts/config/*
+frontend/dist
+!frontend/src/scripts/config/*.template
 .DS_Store

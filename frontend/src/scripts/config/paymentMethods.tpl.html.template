@@ -1,0 +1,61 @@
+<div class="row">
+ <div class="col s12 m6">
+   <div class="card z-depth-1">
+     <div class="card-content">
+       <span class="card-title">PayPal.me</span>
+       <p>PayPal.me/YourName/{{currentPayment.amount_cents / 100}}</p>
+     </div>
+     <div class="card-action right-align">
+       <a ng-attr-href="{{'https://paypal.me/YourName/' + (currentPayment.amount_cents / 100)}}"
+          target="_blank"
+          class="payment-link">
+         <i class="mdi mdi-open-in-new"></i>
+         Take Me There
+       </a>
+     </div>
+   </div>
+ </div>
+
+ <div class="col s12 m6">
+   <div class="card z-depth-1">
+     <div class="card-content">
+       <span class="card-title">PayPal with Mail</span>
+       <p>your.name@provider.com</p>
+     </div>
+     <div class="card-action right-align">
+       <a href class="payment-link" copy-to-clipboard="your.name@provider.com">
+         <i class="mdi mdi-check"></i>
+         copy mail address
+       </a>
+     </div>
+   </div>
+ </div>
+
+ <div class="col s12 m6">
+   <div class="card z-depth-1">
+     <div class="card-content">
+       <span class="card-title">Bank Transfer</span>
+       <p>DE12 3456 7890 9876 5432 1234 56</p>
+     </div>
+     <div class="card-action right-align">
+       <a href class="payment-link" copy-to-clipboard="DE12 3456 7890 9876 5432 1234 56">
+         <i class="mdi mdi-check"></i>
+         copy IBAN
+       </a>
+     </div>
+   </div>
+ </div>
+
+ <div class="col s12 m6" ng-class="{ 'bank-notes-impossible': currentPayment.amount_cents % 500 !== 0 }">
+   <div class="card z-depth-1">
+     <div class="card-content">
+       <span class="card-title">Cash</span>
+       <p>Please, only bank notes.</p>
+     </div>
+     <div class="card-action right-align">
+       COME TO ME
+     </div>
+   </div>
+ </div>
+
+</div>

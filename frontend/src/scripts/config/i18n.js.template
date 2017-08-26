@@ -1,0 +1,137 @@
+angular
+  .module('smartFridge')
+  .config(['$translateProvider', function($translateProvider) {
+
+    var translations = {
+      app: {
+        name: 'Smart Fridge'
+      },
+      registration: {
+        back: 'Back',
+        continue: 'Continue',
+        stepWelcome: {
+            title: 'Welcome to Smart Fridge!',
+            content: `<p>To access our fridge full of wonderful goods, please create an account and attach your personal RFID card.</p>
+                      <p>Now, please go to the Smart Fridge fridge and continue.</p>`
+        },
+        stepScan: {
+          title: 'Scan Your Card',
+          content: `Tap the button and hold your card near the reader until the signal sounds.`,
+          scanNow: 'Scan Now',
+          tryAgain: 'Try Again',
+          reset: 'Reset',
+          state: {
+            loading: `<b>Connecting...</b> <br/> Please make sure, your network supports websocket connections.`,
+            scanning: `<b>Now!</b> Scan your card in time!`,
+            waiting: `There are {{count}} people before you. Please wait.`,
+            nextInLine: `You are the next in line. Please wait.`,
+            success: `<b>Yay!</b> Got your card!`,
+            timeout: `<b>Bummer!</b> No card scanned in time.`
+          }
+        },
+        stepData: {
+          title: 'Enter Your Data',
+          name: 'Full Name',
+          email: 'Email',
+          create: 'Create Account'
+        },
+        stepDone: {
+          title: 'Done!',
+          content: `Congratulations, {{userName}}!
+                    <p>
+                      Your profile has been created. You are now an official member of
+                      Smart Fridge.
+                    </p>
+                    <p>
+                      You will receive an email with your profile link in the next
+                      minutes.
+                    </p>
+                    <p>
+                      From now on, pay your drinks by scanning your RFID card. When you
+                      hear the signal sound, a purchase is made.
+                    </p>
+                    <p>
+                      Check your <b>profile</b> to review your account balance and payment options.
+                    </p>`,
+          continueToProfile: 'Take Me To My Profile'
+        }
+      },
+      user: {
+        paymentModalTitle: 'Payment of {{ amount | euro }}',
+        paymentModalClose: 'Finish',
+        emptyState: {
+          title: `Your profile is ready! <i class="mdi mdi-emoticon-cool"></i>`,
+          content: `<p>
+                      Your profile is up and running. The drinks are cold and refreshing.
+                    </p>
+                    <p>
+                      To buy a drink, simply hold your RFID card next to the reader. The
+                      purchase is safe when you hear the signal sound.
+                    </p>`
+        },
+        outstandingPayments: {
+          title: 'Outstanding payments',
+          noDebtsTitle: 'Cool! No debts.',
+          noActionRequired: 'That\'s totally okay. No action required.',
+          content: `You can pay whenever you want but to keep admin efforts low
+                    and cash flow constant, please pay when you reach
+                    {{ 1000 | euro }}.
+                    Relax. As soon as it is time to pay your debts, Smart Fridge
+                    reminds you with a friendly email.`,
+          payNow: 'Pay now!'
+        },
+        history: {
+          title: '{{ firstName | genitive }} History',
+          purchase: {
+            title: 'Drink for {{ price | euro }}',
+            content: '{{ date | relativeDate }}'
+          },
+          payment: {
+            title: `Payment of {{ amount | euro }}`,
+            declinedTitle: `<b>Declined</b> Payment of {{ amount | euro }}`,
+            content: '{{ date | relativeDate }}'
+          },
+          registration: {
+            title: 'Registration complete',
+            content: '{{ date | date:\'dd.MM.yyyy HH:mm:ss\' }}'
+          }
+        }
+
+      },
+      //relative date
+      just_now: 'just now',
+      seconds_ago: '{{time}} seconds ago',
+      a_minute_ago: 'a minute ago',
+      minutes_ago: '{{time}} minutes ago',
+      an_hour_ago: 'an hour ago',
+      hours_ago: '{{time}} hours ago',
+      a_day_ago: 'yesterday',
+      days_ago: '{{time}} days ago',
+      a_week_ago: 'a week ago',
+      weeks_ago: '{{time}} weeks ago',
+      a_month_ago: 'a month ago',
+      months_ago: '{{time}} months ago',
+      a_year_ago: 'a year ago',
+      years_ago: '{{time}} years ago',
+      over_a_year_ago: 'over a year ago',
+      seconds_from_now: '{{time}} seconds from now',
+      a_minute_from_now: 'a minute from now',
+      minutes_from_now: '{{time}} minutes from now',
+      an_hour_from_now: 'an hour from now',
+      hours_from_now: '{{time}} hours from now',
+      a_day_from_now: 'tomorrow',
+      days_from_now: '{{time}} days from now',
+      a_week_from_now: 'a week from now',
+      weeks_from_now: '{{time}} weeks from now',
+      a_month_from_now: 'a month from now',
+      months_from_now: '{{time}} months from now',
+      a_year_from_now: 'a year from now',
+      years_from_now: '{{time}} years from now',
+      over_a_year_from_now: 'over a year from now',
+    };
+
+    $translateProvider
+       .translations('en', translations)
+       .preferredLanguage('en')
+       .useSanitizeValueStrategy(null);
+}]);

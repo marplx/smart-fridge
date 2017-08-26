@@ -1,0 +1,11 @@
+.collapsible-body {
+  background-color: #fff;
+}
+
+.collapsible.click-disabled .collapsible-header{
+  pointer-events: none;
+}
+
+.active .collapsible-body {
+  display: block;
+}
