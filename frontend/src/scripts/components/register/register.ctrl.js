@@ -47,7 +47,7 @@ angular
     }
 
     function startWebsocket() {
-      let protocol = loc.protocol === "https:" ? 'wss://' : 'ws://';
+      let protocol = window.location.protocol === "https:" ? 'wss://' : 'ws://';
       let url = protocol + window.location.host.replace('9000', '5000') + '/api/scanRfid';
       websocket = new WebSocket(url)
 
