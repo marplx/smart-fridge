@@ -47,8 +47,10 @@ angular
     }
 
     function startWebsocket() {
-      var url = 'ws://' + window.location.host.replace('9000', '5000') + '/api/scanRfid';
+      let protocol = loc.protocol === "https:" ? 'wss://' : 'ws://';
+      let url = protocol + window.location.host.replace('9000', '5000') + '/api/scanRfid';
       websocket = new WebSocket(url)
+
       websocket.onmessage = function(message) {
         if (angular.isString(message.data)) {
           var msgObj = angular.fromJson(message.data);
