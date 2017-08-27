@@ -5,6 +5,16 @@ Each user has an account and can view her or his purchases and payments.
 Admins can review payments and CRUD users. There is an email system attached,
 reminding users of payments.
 
+![](screenshots/registration.png =120)
+![](screenshots/registration-2.png =120)
+![](screenshots/user.png =120)
+![](screenshots/user-payment.png =120)
+
+
+![](screenshots/admin-area.png =240)
+![](screenshots/account-mgmt.png =240)
+
+
 The webapp provides a user side (user purchase and payment history) and an admin
 side (confirmation of payments, user CRUD, dashboard). Users have a unique link
 instead of a username/password login. Admin accounts are configured in the
