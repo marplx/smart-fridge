@@ -5,14 +5,14 @@ Each user has an account and can view her or his purchases and payments.
 Admins can review payments and CRUD users. There is an email system attached,
 reminding users of payments.
 
-![](screenshots/registration.png =120)
-![](screenshots/registration-2.png =120)
-![](screenshots/user.png =120)
-![](screenshots/user-payment.png =120)
+![Registration Step 1](https://raw.githubusercontent.com/marfnk/smart-fridge/master/screenshots/registration.png =120)
+![Registration Step 2](https://raw.githubusercontent.com/marfnk/smart-fridge/master/screenshots/registration-2.png =120)
+![User Profile](https://raw.githubusercontent.com/marfnk/smart-fridge/master/screenshots/user.png =120)
+![Payment Options](https://raw.githubusercontent.com/marfnk/smart-fridge/master/screenshots/user-payment.png =120)
 
 
-![](screenshots/admin-area.png =240)
-![](screenshots/account-mgmt.png =240)
+![Admin Area](https://raw.githubusercontent.com/marfnk/smart-fridge/master/screenshots/admin-area.png =240)
+![Admin Area User Management](https://raw.githubusercontent.com/marfnk/smart-fridge/master/screenshots/account-mgmt.png =240)
 
 
 The webapp provides a user side (user purchase and payment history) and an admin
