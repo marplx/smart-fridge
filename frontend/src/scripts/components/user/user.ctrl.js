@@ -10,6 +10,10 @@ angular
     $scope.payNow = payNow;
     $scope.isPayment = isPayment;
     $scope.isPurchase = isPurchase;
+    $scope.buyDrink = buyDrink;
+
+    $scope.purchased = false;
+    $scope.purchasing = false;
 
     var userId = $routeParams.userId;
     var secret = $routeParams.secret;
@@ -59,9 +63,23 @@ angular
       PaymentService
         .createPaymentWithSecret(userId, $scope.user.secret, $scope.currentDebts)
         .then(function(payment) {
+          payment.isNew = true;
           $scope.payments.push(payment);
           $scope.history = _($scope.purchases).concat($scope.payments).orderBy(['timestamp'], ['desc']).value();
           updateCurrentDebts();
+        });
+    }
+
+    function buyDrink() {
+      $scope.purchasing = true;
+      PurchaseService
+        .createPurchaseForUserIdWithSecret(userId, $scope.user.secret)
+        .then(function(newPurchase) {
+          $scope.purchased = true;
+          $scope.purchasing = false;
+          newPurchase.isNew = true;
+          $scope.history.unshift(newPurchase);
+          $scope.currentDebts += newPurchase.price_cents;
         });
     }
 

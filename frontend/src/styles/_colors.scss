@@ -5,3 +5,40 @@ $gradient-3: linear-gradient(to right, #4776e6, #8e54e9);
 $gradient-4: linear-gradient(to right, #cc2b5e, #753a88);
 $primary-color: #753a88;
 $secondary-color: #cc2b5e;
+
+
+.primary-gradient {
+  background: $gradient-4;
+}
+
+.primary-color {
+  @extend .white-text;
+  background-color: $primary-color !important;
+}
+
+.text-primary-color {
+  color: $primary-color !important;
+}
+
+.secondary-color {
+  @extend .white-text;
+  background-color: $secondary-color !important;
+}
+
+.text-secondary-color {
+  color: $secondary-color !important;
+}
+
+.spinner-primary-color {
+  @extend .spinner-blue-only;
+  border-color: $primary-color;
+}
+
+.spinner-white {
+  @extend .spinner-blue-only;
+  border-color: #fff;
+}
+
+.danger-color {
+  @extend .red, .darken-3, .white-text;
+}

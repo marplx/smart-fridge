@@ -8,6 +8,14 @@
   .kpi {
     font-size: 30px;
     display: block;
+
+    h1 {
+      .secondary-kpi {
+        font-size: 50%;
+        color: #999;
+        font-weight: 100;
+      }
+    }
   }
 
   #chart-container {
@@ -15,6 +23,11 @@
     margin-left: -12px;
     margin-right: -12px;
     width: calc(100% + 24px);
+  }
+
+  .btn-flat.active {
+    color: #fff;
+    background: $primary-color;
   }
 
   .account-management {
@@ -26,9 +39,14 @@
       padding: 10px 5px;
     }
 
-    .collapsible-header i {
-      font-size: 1rem;
-      transform: scale(2);
+    .collapsible-header {
+      i {
+        font-size: 14px;
+        margin-right: 0;
+      }
+      .header-value {
+        margin-right: 3px;
+      }
     }
 
     .user-list {

@@ -3,6 +3,7 @@ const angular = require('angular');
 require('angular-route');
 require('angular-translate');
 require('angular-relative-date');
+require('angular-animate');
 window.$ = window.jQuery = require('jquery');
 
 //setup
@@ -10,7 +11,8 @@ angular
   .module('smartFridge', [
     'ngRoute',
     'pascalprecht.translate',
-    'relativeDate'
+    'relativeDate',
+    'ngAnimate'
   ]);
 
 angular

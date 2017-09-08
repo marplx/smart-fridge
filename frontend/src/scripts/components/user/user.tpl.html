@@ -16,6 +16,7 @@
 </div>
 
 <div class="container user" ng-if="history">
+
   <!-- payment modal -->
   <div class="modal payment-modal modal-fixed-footer" ng-class="{open: currentPayment}">
     <div class="modal-content">
@@ -67,6 +68,19 @@
       </div>
     </div>
 
+    <!-- swipe to buy drink -->
+    <div class="col s12 m8 offset-m2 slide-btn-parent" ng-if="!purchased">
+      <div class="card primary-color">
+        <div class="card-content">
+          <div class="slide-btn-wrapper">
+            <slide-to-action-button action="buyDrink" loading="purchasing">
+              {{ 'user.buyDrink' | translate }}
+            </slide-to-action-button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- history -->
     <div class="col s12 m8 offset-m2">
       <div class="card">
@@ -74,7 +88,8 @@
           <span class="card-title" translate="user.history.title" translate-values="{firstName: firstName}"></span>
 
           <ul class="collection history z-depth-0">
-            <li class="collection-item avatar" ng-repeat="item in history" ng-class="item.status">
+
+            <li class="collection-item avatar" ng-repeat="item in history" ng-class="[item.status, {new: item.isNew}]">
 
               <div ng-if="isPurchase(item)">
                 <i class="material-icons circle mdi mdi-24px white-text mdi-beer primary-color"></i>
@@ -95,7 +110,7 @@
                 </p>
                 <a href
                    ng-if="item.status === 'pending'"
-                   ng-click="$parent.$parent.currentPayment = item"
+                   ng-click="$parent.$parent.$parent.currentPayment = item"
                    class="secondary-content">
                   <i class="mdi mdi-information-outline"></i>
                 </a>

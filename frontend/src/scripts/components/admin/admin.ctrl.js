@@ -13,9 +13,14 @@ angular
 
     $('.collapsible').collapsible();
 
+    $scope.updateUser = UserService.updateUser;
+    $scope.sendEmailReminder = MailService.sendPaymentReminder;
+    $scope.order = 'alphabet';
+
     //loadUsers
     var userPromise = UserService.getUsers().then(function(users) {
-      $scope.users = users;
+      $scope.users = _.orderBy(users, ['name'], ['asc']);
+
       $scope.usersById = _.reduce(users, function(result, user) {
         result[user.id] = user;
         return result;
@@ -24,6 +29,9 @@ angular
 
     var purchasePromise = PurchaseService.getPurchases().then(function(purchases) {
       $scope.purchases = purchases;
+      $scope.todaysPurchases = _.filter(purchases, function(purchase) {
+        return moment().isSame(moment(purchase.timestamp), 'd');
+      }).length;
       createChart();
     });
 
@@ -43,6 +51,7 @@ angular
 
     PaymentService.getPayments().then(function(payments) {
       $scope.payments = payments;
+      $scope.totalEarnings = _.sumBy(_.filter($scope.payments, {status: 'confirmed'}), 'amount_cents');
     });
 
     DebtService.getDebts().then(function(debts) {
@@ -50,10 +59,27 @@ angular
       $scope.totalDebts = _.sum(_.values(debts));
     });
 
-
     $scope.$watch('payments', function() {
       $scope.pendingPayments = _.filter($scope.payments, {status: 'pending'});
     }, true);
+
+    $scope.$watch('order', function() {
+      switch($scope.order) {
+        case 'alphabet':
+          $scope.users = _.orderBy($scope.users, ['name'], ['asc']);
+          break;
+        case 'purchases':
+          $scope.users = _.sortBy($scope.users, function(user) {
+            return - ($scope.purchasesByUsers[user.id] || []).length;
+          });
+          break;
+        case 'debts':
+          $scope.users = _.sortBy($scope.users, function(user) {
+            return - $scope.debts[user.id];
+          });
+          break;
+      }
+    });
 
     $scope.deleteUser = function(user) {
       UserService
@@ -63,9 +89,6 @@ angular
         });
     };
 
-    $scope.updateUser = UserService.updateUser;
-    $scope.sendEmailReminder = MailService.sendPaymentReminder;
-
     $scope.confirmPayment = function (payment) {
       payment.confirming = true;
       PaymentService.confirmPaymentById(payment.id)
@@ -73,6 +96,8 @@ angular
           //No confirmation! MailService.sendPaymentConfirmation(payment);
           payment.confirming = false;
           payment.status = 'confirmed';
+          $scope.totalDebts -= payment.amount_cents;
+          $scope.totalEarnings += payment.amount_cents;
         }).catch(function(err) {
           payment.confirming = false;
         });

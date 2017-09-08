@@ -33,8 +33,9 @@ module.exports = function(app, unknownRfidCallback) {
         }
         return user;
       })
-      .then(PurchaseService.createPurchaseForUser)
-      .then(function(purchase) {
+      .then(function(user) {
+        return PurchaseService.createPurchaseForUserId(user.id);
+      }).then(function(purchase) {
         sendPaymentReminder(user, purchase);
 
         response.status(200).send(purchase);

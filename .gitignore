@@ -1,8 +1,8 @@
 **/.sass-cache/
 **/node_modules/
-frontend/dist
 .DS_Store
 
+frontend/dist
 config/*
 !config/*.template
 frontend/src/scripts/config/*

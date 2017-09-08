@@ -15,6 +15,17 @@ module.exports = function(app) {
       });
   });
 
+  app.post('/api/purchases/:userId/:secret', authBySecret, function(request, response) {
+    PurchaseService
+      .createPurchaseForUserId(request.params.userId)
+      .then(function(purchase) {
+        response.status(200).send(purchase);
+      }).catch(function (err) {
+        console.error(err);
+        response.status(500).send(err);
+      });
+  });
+
   app.get('/api/purchases', authByLogin, function(request, response) {
     PurchaseService
       .getPurchases()

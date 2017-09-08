@@ -1,0 +1,6 @@
+.card {
+  font-weight: 300;
+  &:not(.z-depth-0, .z-depth-1, .z-depth-2, .z-depth-3, .z-depth-4) {
+    @extend .z-depth-5;
+  }
+}

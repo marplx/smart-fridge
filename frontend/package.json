@@ -14,6 +14,7 @@
     "angular-route": "1.5.8",
     "angular-translate": "^2.15.2",
     "clipboard": "^1.7.1",
+    "draggabilly": "^2.1.1",
     "highcharts": "^5.0.14",
     "lodash": "4.13.0",
     "materialize-css": "^0.100.1",

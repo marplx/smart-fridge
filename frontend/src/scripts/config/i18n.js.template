@@ -57,6 +57,7 @@ angular
         }
       },
       user: {
+        buyDrink: 'swipe to buy drink',
         paymentModalTitle: 'Payment of {{ amount | euro }}',
         paymentModalClose: 'Finish',
         emptyState: {
@@ -97,6 +98,49 @@ angular
           }
         }
 
+      },
+      admin: {
+        kpis: {
+          earnings: {
+            title: 'Earnings',
+            outstanding: 'pend.'
+          },
+          purchases: {
+            headline: 'Total Purchases',
+            today: 'today'
+          },
+          chart: {
+            headline: 'Last 14 days'
+          },
+          bestCustomer: {
+            headline: 'Best Customer',
+            content: '{{ numberOfDrinks }} drinks for {{ sumPrice | euro }}'
+          }
+        },
+        pendingPayments: {
+          headline: 'Pending Payments',
+          user: 'User',
+          amount: 'Amount',
+          actions: 'Actions',
+          confirm: 'confirm',
+          decline: 'decline'
+        },
+        accountManagement: {
+          headline: 'Account Management',
+          newAccountHeadline: 'New Account',
+          name: 'Name',
+          email: 'Email',
+          rfid: 'RFID',
+          add: 'add',
+          id: 'ID',
+          registrationDate: 'Since',
+          totalDrinks: 'Total Drinks',
+          edit: 'Edit',
+          save: 'Save',
+          delete: 'Delete',
+          sendPaymentReminder: 'Send Payment Reminder Mail',
+          loginAs: 'Login As'
+        }
       },
       //relative date
       just_now: 'just now',

@@ -105,6 +105,7 @@ angular
       $interval.cancel(interval);
       $scope.secondsRemaining = SCAN_SECONDS;
       $scope.user.rfid = undefined;
+      $scope.scanStatus = {status: 'pristine'};
     }
 
   });

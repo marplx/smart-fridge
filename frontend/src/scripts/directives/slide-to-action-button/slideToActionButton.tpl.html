@@ -1,0 +1,30 @@
+<div class="slide-to-action-btn">
+
+  <div class="slide-area">
+    <div class="handle z-depth-1" ng-class="{'is-done': done}">
+      <div class="start" ng-style="{opacity: 1 - dragPercentage}">
+        1€
+      </div>
+      <div class="end" ng-style="{opacity: dragPercentage}">
+        <i class="mdi mdi-beer mdi-24px"></i>
+
+        <div class="preloader-wrapper big active" ng-if="loading">
+          <div class="spinner-layer spinner-blue-only spinner-white">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="background" ng-style="{opacity: 1 - dragPercentage}" ng-class="{'is-done': done}">
+    <div class="text"><ng-transclude></ng-transclude></div>
+  </div>
+</div>

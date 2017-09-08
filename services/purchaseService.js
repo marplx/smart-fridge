@@ -19,10 +19,10 @@ function getPurchases() {
     });
 }
 
-function createPurchaseForUser(user) {
+function createPurchaseForUserId(userId) {
   return Client.query({
       text: 'INSERT INTO purchases(user_id, price_cents, timestamp) VALUES($1, $2, $3) RETURNING *;',
-      values: [user.id, 100, new Date()]
+      values: [userId, 100, new Date()]
     })
     .then(function(result) {
       return result.rows[0];
@@ -39,6 +39,6 @@ function deletePurchasesForUserId(userId) {
 module.exports = {
     getPurchasesForUser,
     getPurchases,
-    createPurchaseForUser,
+    createPurchaseForUserId,
     deletePurchasesForUserId
 };

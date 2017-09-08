@@ -4,22 +4,28 @@
   <div class="row">
 
     <div class="col s12 m6">
-      <div class="card">
+      <div class="card kpi">
         <div class="card-content">
-          <span class="card-title"><i class="mdi mdi-coins"></i> Outstanding Payments</span>
+          <span class="card-title"><i class="mdi mdi-coins"></i> {{ 'admin.kpis.earnings.title' | translate }}</span>
           <p>
-            <h1>{{ totalDebts | euro }}</h1>
+            <h1>
+              {{ totalEarnings | euro }}
+              <span class="secondary-kpi">&mdash;&nbsp;{{ totalDebts | euro }}&nbsp;{{ 'admin.kpis.earnings.outstanding' | translate }}</span>
+            </h1>
           </p>
         </div>
       </div>
     </div>
 
     <div class="col s12 m6">
-      <div class="card">
+      <div class="card kpi">
         <div class="card-content">
-          <span class="card-title"><i class="mdi mdi-beer"></i> Total Purchases</span>
+          <span class="card-title"><i class="mdi mdi-beer"></i> {{ 'admin.kpis.purchases.headline' | translate }}</span>
           <p>
-            <h1>{{purchases.length}}</h1>
+            <h1>
+              {{purchases.length}}
+              <span class="secondary-kpi">&mdash;&nbsp;{{todaysPurchases}} {{ 'admin.kpis.purchases.today' | translate }}</span>
+            </h1>
           </p>
         </div>
       </div>
@@ -31,8 +37,8 @@
     <div class="col s12">
       <div class="card">
         <div class="card-content">
-          <span class="card-title"><i class="mdi mdi-trending-up"></i> Last 14 Days</span>
-          <div id="chart-container" ></div>
+          <span class="card-title"><i class="mdi mdi-trending-up"></i> {{ 'admin.kpis.chart.headline' | translate }}</span>
+          <div id="chart-container"></div>
         </div>
       </div>
     </div>
@@ -43,25 +49,17 @@
     <div class="col s12 m6">
       <div class="card">
         <div class="card-content">
-          <span class="card-title"><i class="mdi mdi-heart-outline"></i> Best Customer</span>
+          <span class="card-title"><i class="mdi mdi-heart-outline"></i> {{ 'admin.kpis.bestCustomer.headline' | translate }}</span>
           <p>
             <h2 class="truncate" ng-attr-title="{{bestCustomer.name}}">{{bestCustomer.name}}</h2>
-            {{bestCustomer.totalPurchases}} drinks for {{ bestCustomer.totalAmount | euro }}
+            {{ 'admin.kpis.bestCustomer.content' | translate:{numberOfDrinks: bestCustomer.totalPurchases, sumPrice: bestCustomer.totalAmount} }}
           </p>
         </div>
       </div>
     </div>
 
     <div class="col s12 m6">
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title"><i class="mdi mdi-account-settings-variant"></i> Active Users</span>
-          <p>
-            <h2>?</h2>
-            {{users.length}} accounts in total
-          </p>
-        </div>
-      </div>
+      <!-- kpi -->
     </div>
 
   </div>
@@ -71,14 +69,14 @@
     <div class="col s12" ng-if="pendingPayments.length > 0">
       <div class="card white">
         <div class="card-content">
-          <span class="card-title">Pending Payments</span>
+          <span class="card-title">{{ 'admin.pendingPayments.headline' | translate }}</span>
 
           <table>
             <thead>
               <tr>
-                  <th>User</th>
-                  <th>Amount</th>
-                  <th>Actions</th>
+                  <th>{{ 'admin.pendingPayments.user' | translate }}</th>
+                  <th>{{ 'admin.pendingPayments.amount' | translate }}</th>
+                  <th>{{ 'admin.pendingPayments.actions' | translate }}</th>
               </tr>
             </thead>
 
@@ -89,12 +87,12 @@
                 <td>
                   <button class="waves-effect waves-light btn btn-flat primary-color" type="button" ng-disabled="payment.confirming" ng-click="confirmPayment(payment)">
                     <i class="mdi" ng-class="{'mdi-loading mdi-spin': payment.confirming, 'mdi-check': !payment.confirming}"></i>
-                    confirm
+                    {{ 'admin.pendingPayments.confirm' | translate }}
                   </button>
                   &nbsp;
                   <button class="waves-effect waves-light btn btn-flat danger-color" type="button" ng-disabled="payment.declining" ng-click="declinePayment(payment)">
                     <i class="mdi" ng-class="{'mdi-loading mdi-spin': payment.declining, 'mdi-block-helper': !payment.declining}"></i>
-                    decline
+                    {{ 'admin.pendingPayments.decline' | translate }}
                   </button>
                 </td>
               </tr>
@@ -107,28 +105,28 @@
     <div class="col s12">
       <div class="card white account-management">
         <div class="card-content">
-          <span class="card-title">Account Management</span>
+          <span class="card-title">{{ 'admin.accountManagement.headline' | translate }}</span>
           <ul class="collapsible z-depth-0" data-collapsible="accordion">
             <li>
               <div class="collapsible-header">
-                <i class="mdi mdi-plus"></i> New Account
+                <i class="mdi mdi-plus"></i> {{ 'admin.accountManagement.newAccountHeadline' | translate }}
               </div>
               <div class="collapsible-body">
                 <table>
                   <tr>
                     <td>
-                      <input type="text" placeholder="Name" ng-model="newUserName" ng-disabled="inserting" />
+                      <input type="text" placeholder="{{ 'admin.accountManagement.name' | translate }}" ng-model="newUserName" ng-disabled="inserting" />
                     </td>
                     <td>
-                      <input type="text" placeholder="Email" ng-model="newUserEmail" ng-disabled="inserting" />
+                      <input type="text" placeholder="{{ 'admin.accountManagement.email' | translate }}" ng-model="newUserEmail" ng-disabled="inserting" />
                     </td>
                     <td>
-                      <input type="text" placeholder="RFID" ng-model="newUserRfid" ng-disabled="inserting" />
+                      <input type="text" placeholder="{{ 'admin.accountManagement.rfid' | translate }}" ng-model="newUserRfid" ng-disabled="inserting" />
                     </td>
                     <td>
                       <button class="waves-effect waves-light btn btn-flat primary-color" ng-click="createUser()" ng-disabled="inserting ">
                         <i class="mdi" ng-class="{ 'mdi-plus': !inserting, 'mdi-loading mdi-spin': inserting}"></i>
-                        add
+                        {{ 'admin.accountManagement.add' | translate }}
                       </button>
                     </td>
                   </tr>
@@ -137,13 +135,35 @@
             </li>
           </ul>
 
-          <ul class="collapsible z-depth-0 user-list" data-collapsible="accordion">
+          <div class="sort-toolbar right-align">
+            Order
+            <a href
+               class="waves-effect waves-teal btn-flat"
+               ng-click="order = 'alphabet'"
+               ng-class="{active: order === 'alphabet'}">
+              <i class="mdi mdi-alphabetical"></i>
+            </a>
+            <a href
+               class="waves-effect waves-teal btn-flat"
+               ng-click="order = 'purchases'"
+               ng-class="{active: order === 'purchases'}">
+              <i class="mdi mdi-beer"></i>
+            </a>
+            <a href
+               class="waves-effect waves-teal btn-flat"
+               ng-click="order = 'debts'"
+               ng-class="{active: order === 'debts'}">
+              <i class="mdi mdi-coins"></i>
+            </a>
+          </div>
 
+          <ul class="collapsible z-depth-0 user-list" data-collapsible="accordion">
             <li ng-repeat="user in users">
               <div class="collapsible-header">
-                <i class="mdi mdi-account"></i>
+                <!-- <i class="mdi mdi-account"></i> -->
                 <div class="user-name">{{user.name}}</div>
-                <div><i class="mdi mdi-coins"></i> {{debts[user.id] | euro }}</div>
+                <div class="header-value"><i class="mdi mdi-beer"></i> {{purchasesByUsers[user.id].length || 0}}</div>
+                <div class="header-value"><i class="mdi mdi-coins"></i> {{debts[user.id] | euro }}</div>
               </div>
 
               <div class="collapsible-body">
@@ -151,30 +171,30 @@
                   <div class="col s12 m6">
                     <table>
                       <tr>
-                        <th>ID</th>
+                        <th>{{ 'admin.accountManagement.id' | translate }}</th>
                         <td>{{user.id}}</td>
                       </tr>
                       <tr>
-                        <th>Name</th>
+                        <th>{{ 'admin.accountManagement.name' | translate }}</th>
                         <td ng-if="!editMode">{{user.name}}</td>
                         <td ng-if="editMode"><input type="text" ng-model="user.name" /></td>
                       </tr>
                       <tr>
-                        <th>Email</th>
+                        <th>{{ 'admin.accountManagement.email' | translate }}</th>
                         <td ng-if="!editMode">{{user.email}}</td>
                         <td ng-if="editMode"><input type="text" ng-model="user.email" /></td>
                       </tr>
                       <tr>
-                        <th>RFID</th>
+                        <th>{{ 'admin.accountManagement.rfid' | translate }}</th>
                         <td ng-if="!editMode"><code>{{user.rfid}}</code></td>
                         <td ng-if="editMode"><code><input type="text" ng-model="user.rfid" /></code></td>
                       </tr>
                       <tr>
-                        <th>Since</th>
+                        <th>{{ 'admin.accountManagement.registrationDate' | translate }}</th>
                         <td>{{user.registration_timestamp | date:short}}</td>
                       </tr>
                       <tr>
-                        <th>Total drinks</th>
+                        <th>{{ 'admin.accountManagement.totalDrinks' | translate }}</th>
                         <td>{{purchasesByUsers[user.id].length || 0}}</td>
                       </tr>
                     </table>
@@ -183,13 +203,13 @@
                     <button type="button" class="waves-effect waves-light btn btn-flat primary-color"
                             ng-click="editMode = !editMode" ng-hide="editMode">
                       <i class="mdi mdi-pencil"></i>
-                      Edit
+                      {{ 'admin.accountManagement.edit' | translate }}
                     </button>
 
                     <button class="waves-effect waves-light btn btn-flat primary-color"
                             ng-click="updateUser(user);editMode = !editMode" ng-hide="!editMode">
                       <i class="mdi mdi-check"></i>
-                      Save
+                      {{ 'admin.accountManagement.save' | translate }}
                     </button>
 
                     <br/>
@@ -202,7 +222,7 @@
                     <button type="button" class="waves-effect waves-light btn btn-flat red darken-3 white-text"
                             ng-disabled="!deleteActive" ng-click="deleteUser(user)">
                       <i class="mdi mdi-delete"></i>
-                      Delete
+                      {{ 'admin.accountManagement.delete' | translate }}
                     </button>
 
                     <br/>
@@ -211,7 +231,7 @@
                     <button type="button" class="waves-effect waves-light btn btn-flat primary-color"
                             ng-disabled="mailSent || !debts[user.id]" ng-click="sendEmailReminder(user);mailSent = true">
                       <i class="mdi" ng-class="{ 'mdi-check': mailSent, 'mdi-email-alert': !mailSent}"></i>
-                      Send Payment Reminder Mail
+                      {{ 'admin.accountManagement.sendPaymentReminder' | translate }}
                     </button>
 
                     <br/>
@@ -220,7 +240,7 @@
                     <a ng-attr-href="{{'#/user/' + user.id + '/' + user.secret }}"
                         class="waves-effect waves-light btn btn-flat primary-color">
                       <i class="mdi mdi-login-variant"></i>
-                      Login as
+                      {{ 'admin.accountManagement.loginAs' | translate }}
                     </button>
                   </div>
               </div>

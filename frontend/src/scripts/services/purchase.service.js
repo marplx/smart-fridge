@@ -23,7 +23,17 @@ function PurchaseService($http) {
       });
     }
 
+    function createPurchaseForUserIdWithSecret(userId, secret) {
+      return $http({
+          method: 'POST',
+          url: `/api/purchases/${userId}/${secret}`
+      }).then(function(result) {
+        return result.data;
+      });
+    }
+
     return {
+      createPurchaseForUserIdWithSecret,
       getPurchasesForUserIdWithSecret,
       getPurchases
     }
